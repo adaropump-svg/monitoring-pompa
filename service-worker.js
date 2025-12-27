@@ -2,16 +2,17 @@ self.addEventListener("install", e => {
   e.waitUntil(
     caches.open("pump-monitor-v1").then(cache => {
       return cache.addAll([
-        "index.html",
-        "dashboard.html",
-        "menu-ops.html",
-        "menu-mon.html",
-        "menu-hce.html",
-        "data-record.html",
-        "grafik.html",
-        "setting.html",
-        "assets/app-config.js",
-        "assets/app-theme.css"
+        "./",
+        "./index.html",
+        "./dashboard.html",
+        "./menu-ops.html",
+        "./menu-mon.html",
+        "./menu-hce.html",
+        "./data-record.html",
+        "./grafik.html",
+        "./setting.html",
+        "./app-config.js",
+        "./app-theme.css"
       ]);
     })
   );
@@ -22,3 +23,5 @@ self.addEventListener("fetch", e => {
     caches.match(e.request).then(resp => resp || fetch(e.request))
   );
 });
+
+
