@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>DATA RECORD - ADARO PUMP MONITORING</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="assets/app-theme.css">
+<script src="assets/app-config.js" defer></script>
+<script src="assets/app-config.js"></script>
+<link rel="stylesheet" href="assets/app-theme.css">
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family:"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url("bg.jpg") no-repeat center/cover;
+  color:#fff;
+}
+
+/* BACK */
+.btn-back{
+  position:fixed;
+  top:15px;
+  left:15px;
+  background:#fff;
+  color:#003366;
+  padding:10px 16px;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:600;
+  text-decoration:none;
+  z-index:999;
+}
+
+header{
+  text-align:center;
+  padding:60px 20px 20px;
+}
+
+header img{
+  max-width:90px;
+}
+
+header h1{
+  margin:10px 0 5px;
+  font-size:24px;
+}
+
+header p{
+  font-size:14px;
+  opacity:.9;
+}
+
+.container{
+  max-width:1200px;
+  margin:0 auto 40px;
+  background:rgba(255,255,255,.95);
+  color:#003366;
+  border-radius:14px;
+  padding:20px;
+}
+
+/* FILTER */
+.filter-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+
+label{
+  font-size:13px;
+  font-weight:600;
+}
+
+select{
+  width:100%;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:13px;
+}
+
+/* BUTTON */
+.action-bar{
+  display:flex;
+  gap:12px;
+  margin-bottom:15px;
+}
+
+.action-bar button{
+  padding:10px 16px;
+  border:none;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.btn-search{background:#004f9f;color:#fff;}
+.btn-excel{background:#1d6f42;color:#fff;}
+.btn-pdf{background:#b02a37;color:#fff;}
+
+/* TABLE */
+.table-wrapper{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+th,td{
+  border:1px solid #ccc;
+  padding:6px 8px;
+  text-align:center;
+  white-space:nowrap;
+}
+
+th{
+  background:#004f9f;
+  color:#fff;
+}
+
+.sheet-title{
+  font-weight:700;
+  margin:15px 0 5px;
+}
+.btn-edit{
+  background:#ffc107;
+  border:none;
+  padding:6px 10px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js/dist/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+<a href="dashboard.html" class="btn-back">⬅ Menu Utama</a>
+
+<header>
+  <img src="logo.png">
+  <h1>DATA RECORD</h1>
+  <p>Rekap data Operasional, Monitoring & Health Equipment</p>
+</header>
+
+<div class="container">
+
+<!-- FILTER -->
+<div class="filter-grid">
+
+  <div>
+    <label>Lokasi</label>
+    <select id="lokasi">
+      <option value="all">All Location</option>
+      <option value="adaro">Adaro Indonesia</option>
+      <option value="sis">Sis ADMO</option>
+      <option value="sera">Sera</option>
+      <option value="maco">Maco</option>
+    </select>
+  </div>
+
+  <div>
+  <label>Kategori Data</label>
+  <select id="filterKategori">
+    <option value="">-- Semua --</option>
+    <option value="OPS">Operasional</option>
+    <option value="MON">Monitoring</option>
+    <option value="HCE">Health Equipment</option>
+  </select>
+</div>
+
+
+  <div>
+    <label>Tahun</label>
+    <select>
+      <option value="">-- Pilih --</option>
+      <option>2026</option>
+      <option>2027</option>
+      <option>2028</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Bulan</label>
+    <select>
+      <option value="">-- Pilih --</option>
+      <option>Januari</option>
+      <option>Februari</option>
+      <option>Maret</option>
+      <option>April</option>
+      <option>Mei</option>
+      <option>Juni</option>
+      <option>Juli</option>
+      <option>Agustus</option>
+      <option>September</option>
+      <option>Oktober</option>
+      <option>November</option>
+      <option>Desember</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Minggu</label>
+    <select>
+      <option value="">-- Optional --</option>
+      <option>Week 1</option>
+      <option>Week 2</option>
+      <option>Week 3</option>
+      <option>Week 4</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Tanggal</label>
+    <select>
+      <option value="">-- Optional --</option>
+      <script>
+        for(let i=1;i<=31;i++){
+          document.write(`<option>${i}</option>`);
+        }
+      </script>
+    </select>
+  </div>
+
+  <div>
+    <label>Code Unit</label>
+    <select id="codeUnit">
+      <option value="">-- Pilih --</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Jenis Pompa</label>
+    <select>
+      <option>Elektrik Pump</option>
+      <option>Diesel Pump</option>
+    </select>
+  </div>
+
+</div>
+
+<!-- ACTION -->
+<div class="action-bar">
+  <button class="btn-search" onclick="applyFilter()">TAMPILKAN DATA</button>
+  <button class="btn-excel">EXPORT EXCEL</button>
+  <button class="btn-pdf" onclick="exportPDF()">EXPORT PDF</button>
+</div>
+
+<!-- DATA -->
+<!-- DATA -->
+<div id="dataResult" style="display:none;">
+  <div class="table-wrapper">
+
+
+<div class="sheet-title">Sheet : Adaro Indonesia</div>
+<table>
+<thead>
+<tr>
+  <th>Tanggal</th>
+  <th>Jam</th>
+  <th>Lokasi</th>
+  <th>Code Unit</th>
+  <th>Shift</th>
+  <th>Jenis Pompa</th>
+  <th>Data</th>
+  <th>Aksi</th>
+</tr>
+</thead>
+<tbody id="dataBody">
+  <!-- DATA DARI LOCALSTORAGE AKAN MUNCUL DI SINI -->
+</tbody>
+
+</table>
+  </div>
+</div>
+
+
+<script>
+// CODE UNIT DINAMIS
+const unitData={
+  adaro:["MP 01","MP 02","MP 06","MP 08","BP 01","BP 02"],
+  sis:Array.from({length:101},(_,i)=>"ATS "+(100+i)),
+  sera:["ATS 131","ATS 132","ATS 134","ATS 321"],
+  maco:["ATS 211","ATS 213","ATS 214"]
+};
+
+const lokasi=document.getElementById("lokasi");
+const unit=document.getElementById("codeUnit");
+
+lokasi.addEventListener("change",()=>{
+  unit.innerHTML='<option value="">-- Pilih --</option>';
+  if(lokasi.value==="all")return;
+  unitData[lokasi.value].forEach(u=>{
+    const o=document.createElement("option");
+    o.textContent=u;
+    unit.appendChild(o);
+  });
+});
+
+function applyFilter(){
+  const lokasi   = document.getElementById("lokasi").value;
+  const unit     = document.getElementById("codeUnit").value;
+  const kategori = document.getElementById("filterKategori").value;
+
+  if(!lokasi || lokasi==="all"){
+    alert("Silakan pilih Lokasi");
+    return;
+  }
+
+  if(!unit){
+    alert("Silakan pilih Code Unit");
+    return;
+  }
+
+  if(!kategori){
+    alert("Silakan pilih Kategori Data");
+    return;
+  }
+
+  const hasil = DATA_RECORD.filter(item =>
+    item.lokasi === lokasi &&
+    item.codeUnit === unit &&
+    item.kategori === kategori
+  );
+
+  renderFilteredTable(hasil);
+  document.getElementById("dataResult").style.display = "block";
+}
+
+
+function exportPDF(){
+  const area=document.getElementById("dataResult");
+  if(area.style.display==="none"){
+    alert("Data belum ditampilkan");
+    return;
+  }
+  html2pdf().from(area).save("data-record.pdf");
+}
+
+const loginMode = sessionStorage.getItem("loginMode");
+
+// sembunyikan tombol edit jika bukan admin
+if(loginMode!=="admin"){
+  document.querySelectorAll(".btn-edit").forEach(b=>b.style.display="none");
+}
+
+function openEdit(index){
+  const data = DATA_RECORD[index];
+
+  document.getElementById("editIndex").value = index;
+  document.getElementById("editTanggal").value = data.tanggal;
+  document.getElementById("editJam").value = data.jam;
+  document.getElementById("editShift").value = data.shift;
+  document.getElementById("editData").value = data.data;
+
+  document.getElementById("editModal").style.display = "flex";
+}
+
+
+function closeEdit(){
+  document.getElementById("editModal").style.display="none";
+}
+
+function saveEdit(){
+  const index = document.getElementById("editIndex").value;
+
+  DATA_RECORD[index].tanggal = document.getElementById("editTanggal").value;
+  DATA_RECORD[index].jam = document.getElementById("editJam").value;
+  DATA_RECORD[index].shift = document.getElementById("editShift").value;
+  DATA_RECORD[index].data = document.getElementById("editData").value;
+
+  saveDataRecord();   // simpan ke localStorage
+  renderTable();      // refresh tabel
+
+  alert("Data berhasil diperbarui");
+  closeEdit();
+}
+
+</script>
+<script src="app-setting.js"></script>
+<!-- ================= MODAL EDIT ADMIN ================= -->
+<div id="editModal" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:9999;
+  justify-content:center;
+  align-items:center;
+">
+
+  <div style="
+    background:#fff;
+    width:90%;
+    max-width:420px;
+    padding:20px;
+    border-radius:12px;
+    color:#003366;
+  ">
+
+    <h3>Edit Data Record</h3>
+
+    <input type="hidden" id="editIndex">
+
+    <label>Tanggal</label>
+    <input type="date" id="editTanggal">
+
+    <label>Jam</label>
+    <input type="time" id="editJam">
+
+    <label>Shift</label>
+    <input type="text" id="editShift">
+
+    <label>Status Data</label>
+    <input type="text" id="editData">
+
+    <br><br>
+    <button onclick="saveEdit()">💾 Simpan</button>
+    <button onclick="closeEdit()">❌ Batal</button>
+
+  </div>
+</div>
+<script>
+/* =========================
+   STORAGE UTAMA
+========================= */
+let DATA_RECORD = JSON.parse(localStorage.getItem("DATA_RECORD")) || [];
+
+function saveDataRecord(){
+  localStorage.setItem("DATA_RECORD", JSON.stringify(DATA_RECORD));
+}
+</script>
+<script>
+function renderTable(){
+  const tbody = document.getElementById("dataBody");
+  tbody.innerHTML = "";
+
+  if(DATA_RECORD.length === 0){
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8">Belum ada data</td>
+      </tr>
+    `;
+    return;
+  }
+
+  DATA_RECORD.forEach((item, index) => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${item.tanggal}</td>
+      <td>${item.jam}</td>
+      <td>${item.lokasi}</td>
+      <td>${item.codeUnit}</td>
+      <td>${item.shift}</td>
+      <td>${item.jenisPompa}</td>
+      <td>${item.data}</td>
+      <td>
+        <button class="btn-edit" onclick="openEdit(${index})">✏️</button>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+
+  // sembunyikan edit jika bukan admin
+  if(loginMode !== "admin"){
+    document.querySelectorAll(".btn-edit")
+      .forEach(b=>b.style.display="none");
+  }
+}
+</script>
+<script>
+function renderFilteredTable(data){
+  const tbody = document.getElementById("dataBody");
+  tbody.innerHTML = "";
+
+  if(data.length === 0){
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8">Data tidak ditemukan</td>
+      </tr>
+    `;
+    return;
+  }
+
+  data.forEach((item, index) => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${item.tanggal}</td>
+      <td>${item.jam}</td>
+      <td>${item.lokasi}</td>
+      <td>${item.codeUnit}</td>
+      <td>${item.shift}</td>
+      <td>${item.jenisPompa}</td>
+      <td>${item.data}</td>
+      <td>
+        <button class="btn-edit" onclick="openEdit(${index})">✏️</button>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+
+  if(loginMode !== "admin"){
+    document.querySelectorAll(".btn-edit")
+      .forEach(b=>b.style.display="none");
+  }
+}
+</script>
+
+</body>
+</html>

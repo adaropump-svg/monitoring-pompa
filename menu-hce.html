@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>MENU HCE - ADARO PUMP MONITORING</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="assets/app-theme.css">
+<script src="assets/app-config.js" defer></script>
+
+<style>
+*{box-sizing:border-box;font-family:"Segoe UI",Roboto,Arial,sans-serif}
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url("bg.jpg") center/cover;
+  color:#003366;
+}
+.btn-back{
+  position:fixed;top:15px;left:15px;
+  background:#fff;color:#003366;
+  padding:8px 14px;border-radius:6px;
+  font-weight:600;text-decoration:none;z-index:999;
+}
+header{
+  text-align:center;padding:60px 20px 15px;color:#fff
+}
+header img{max-width:85px}
+header h1{margin:10px 0 5px;font-size:22px}
+header p{font-size:13px;opacity:.9}
+
+.container{
+  max-width:1000px;
+  margin:0 auto 30px;
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+}
+
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
+label{font-size:13px;font-weight:600;margin-bottom:4px;display:block}
+input,select,textarea{
+  width:100%;padding:6px;font-size:13px;
+  border:1px solid #ccc;border-radius:5px
+}
+textarea{height:40px;resize:none}
+
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{
+  border:1px solid #ccc;
+  padding:6px;font-size:13px
+}
+th{background:#f2f4f6}
+
+select.status{width:90px;padding:4px}
+
+.btn-save{
+  margin-top:20px;
+  width:100%;padding:12px;
+  background:#004f9f;color:#fff;
+  border:none;border-radius:8px;
+  font-size:15px;font-weight:600;cursor:pointer
+}
+.btn-save:hover{background:#003366}
+
+@media(max-width:768px){
+  .row{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<a href="dashboard.html" class="btn-back">⬅ Menu Utama</a>
+
+<header>
+  <img src="logo.png">
+  <h1>MENU HCE</h1>
+  <p>Formulir pemeriksaan kesehatan equipment – 1 kali setiap shift</p>
+</header>
+
+<div class="container">
+  <form id="opsForm">
+
+
+<!-- HEADER FORM -->
+<div class="row">
+  <div>
+    <label>Tanggal</label>
+    <input type="date" id="tgl" readonly>
+  </div>
+  <div>
+    <label>Jam</label>
+    <input type="time" id="jam" readonly>
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <label>Lokasi</label>
+    <select id="lokasi">
+      <option value="">Pilih Lokasi</option>
+      <option value="adaro">Adaro Indonesia</option>
+      <option value="sis">Sis ADMO</option>
+      <option value="sera">Sera</option>
+      <option value="maco">Maco</option>
+    </select>
+  </div>
+  <div>
+    <label>Shift</label>
+    <select>
+      <option>Siang (06.00–18.00)</option>
+      <option>Malam (18.00–06.00)</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <label>Jenis Pompa</label>
+    <select id="jenisPompa">
+      <option value="">Pilih</option>
+      <option value="elektrik">Elektrik Pump</option>
+      <option value="diesel">Diesel Pump</option>
+    </select>
+  </div>
+  <div>
+    <label>Code Unit</label>
+    <select id="codeUnit">
+      <option value="">Pilih Code Unit</option>
+    </select>
+  </div>
+</div>
+
+<!-- TABLE CHECKLIST -->
+<table>
+<thead>
+<tr>
+  <th>Equipment</th>
+  <th>Status</th>
+  <th>Catatan (Max 30 kata)</th>
+</tr>
+</thead>
+<tbody>
+
+<!-- ELEKTRIK -->
+<tr class="elektrik"><td>PUMP</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>MOTOR</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>COUPLING</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>SUCTION HOSE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>STRAINER</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>NRV</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>BUTTERFLY VALVE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>DISCHARGE PIPE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>FLOWMETER</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>CABLE POWER</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>CABLE PRIMING</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>PANEL PUMP</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>PANEL VSD</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>WORK LAMP</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>STROBE LAMP</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>GLAND PACKING</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>PONTOON</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>APAR</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>RING BUOY</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>BOLT TIGHTNESS</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>BARESHAFT LUBRICANT</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>PRESSURE GAUGE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>PUMP PAINT COLOR</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>BOOM</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="elektrik"><td>CHAIN BOOM</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+
+<!-- DIESEL -->
+<tr class="diesel"><td>ENGINE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>RADIATOR</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>OIL ENGINE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>COLLANT LEVEL</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>PUMP</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>COUPLING</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>SUCTION HOSE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>STRAINER</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>NRV</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>BUTTERFLY VALVE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>DISCHARGE PIPE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>FLOWMETER</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>PANEL PUMP</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>WORK LAMP</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>STROBE LAMP</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>GLAND PACKING</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>PONTOON</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>APAR</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>RING BUOY</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>BOLT TIGHTNESS</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>BARESHAFT LUBRICANT</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>PRESSURE GAUGE</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>PUMP PAINT COLOR</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>BOOM</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+<tr class="diesel"><td>CHAIN BOOM</td><td><select class="status"><option>OK</option><option>NOT OK</option></select></td><td><textarea></textarea></td></tr>
+
+</tbody>
+</table>
+
+  <button class="btn-save" type="submit">SIMPAN</button>
+
+  </form>
+</div>
+
+
+<script>
+const now=new Date();
+tgl.value=now.toISOString().slice(0,10);
+jam.value=now.toTimeString().slice(0,5);
+
+const dataUnit={
+  adaro:["MP01","MP02","MP06","MP08","BP01","BP02"],
+  sis:["ATS100","ATS150","ATS200"],
+  sera:["ATS131","ATS132","ATS134","ATS321"],
+  maco:["ATS211","ATS213","ATS214"]
+};
+
+lokasi.onchange=()=>{
+  codeUnit.innerHTML='<option value="">Pilih Code Unit</option>';
+  (dataUnit[lokasi.value]||[]).forEach(u=>{
+    const o=document.createElement("option");
+    o.textContent=u;codeUnit.appendChild(o);
+  });
+};
+
+jenisPompa.onchange=()=>{
+  document.querySelectorAll(".elektrik").forEach(e=>e.style.display=jenisPompa.value==="elektrik"?"table-row":"none");
+  document.querySelectorAll(".diesel").forEach(e=>e.style.display=jenisPompa.value==="diesel"?"table-row":"none");
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("opsForm");
+
+  if(form){
+    form.addEventListener("submit", function(e){
+      e.preventDefault(); // cegah reload
+
+      // 🔒 DI SINI nanti logic simpan data (tidak kita sentuh dulu)
+
+      setTimeout(() => {
+        form.reset();
+        document.getElementById("totalVolume").value = "";
+        document.getElementById("kwhField").style.display = "grid";
+        document.getElementById("fuelField").style.display = "none";
+      }, 150);
+    });
+  }
+});
+</script>
+<script src="app-setting.js"></script>
+
+</body>
+</html>
+
+
