@@ -1,7 +1,7 @@
 {
   "name": "Adaro Pump Monitoring",
   "short_name": "Pump Monitor",
-  "start_url": "./index.html",
+  "start_url": "/"
   "scope": "./",
   "display": "standalone",
   "background_color": "#003366",
@@ -19,3 +19,4 @@
     }
   ]
 }
+
